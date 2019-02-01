@@ -11,7 +11,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <ListBox x:Name="listCars" HorizontalAlignment="Left" Height="162" Margin="662,33,0,0" VerticalAlignment="Top" Width="153" SelectionChanged="listCars_SelectionChanged"/>
+        <ListBox x:Name="listCars" HorizontalAlignment="Left" Height="162" Margin="660,33,0,0" VerticalAlignment="Top" Width="155" SelectionChanged="listCars_SelectionChanged"/>
         <TextBox x:Name="textId" HorizontalAlignment="Left" Height="22" Margin="220,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="128"/>
         <TextBox x:Name="textName" HorizontalAlignment="Left" Height="22" Margin="220,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
         <Button x:Name="btnAdd" Content="Add Car" HorizontalAlignment="Left" Margin="51,249,0,0" VerticalAlignment="Top" Width="75" Click="btnAdd_Click" Height="20"/>
@@ -28,7 +28,7 @@
                 <DropShadowEffect Color="White"/>
             </Button.Effect>
         </Button>
-        <ListBox x:Name="listOwners" HorizontalAlignment="Left" Height="160" Margin="455,33,0,0" VerticalAlignment="Top" Width="155" SelectionChanged="ListOwners_SelectionChanged"/>
+        <ListBox x:Name="listOwners" HorizontalAlignment="Left" Height="162" Margin="455,33,0,0" VerticalAlignment="Top" Width="155" SelectionChanged="ListOwners_SelectionChanged"/>
         <ListBox x:Name="listSales" HorizontalAlignment="Left" Height="164" Margin="560,234,0,0" VerticalAlignment="Top" Width="182" RenderTransformOrigin="0.412,0.171"/>
         <Button x:Name="btnSale" Content="SELL" HorizontalAlignment="Left" Margin="50,334,0,0" VerticalAlignment="Top" Width="76" Click="BtnSale_Click" Height="20"/>
         <Button x:Name="btnResale" Content="RESELL" HorizontalAlignment="Left" Margin="368,334,0,0" VerticalAlignment="Top" Width="76" Click="BtnResale_Click" Height="20"/>
