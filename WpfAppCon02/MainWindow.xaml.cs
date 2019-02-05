@@ -25,6 +25,7 @@ namespace WpfAppCon02
         private ObservableCollection<Car> obsCars = null;
         private ObservableCollection<Owner> obsOwners = null;
         private ObservableCollection<Sale> obsSales = null;
+        private bool otherFlag=false;
 
         public MainWindow()
         {
@@ -68,11 +69,13 @@ namespace WpfAppCon02
         }
         private void FillObsCars()
         {
+            listCars.SelectionChanged -= listCars_SelectionChanged;
             carSelectionChangedEventDisabledFlag = true;
             obsCars.Clear();
             foreach (Car car in db.Read_Cars_from_DB())
                 obsCars.Add(car);
             carSelectionChangedEventDisabledFlag = false;
+            listCars.SelectionChanged += listCars_SelectionChanged;
         }
         #endregion
 
@@ -82,20 +85,36 @@ namespace WpfAppCon02
             if (db != null)
                 db.IsolationLevel = comboBoxTransactionMode.SelectedIndex == 0 ? System.Data.IsolationLevel.ReadCommitted : System.Data.IsolationLevel.Serializable;
         }
+        /// <summary>
+        /// Pfusch
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void listCars_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
             {
+                if (otherFlag == true)
+                    return;
                 if (!carSelectionChangedEventDisabledFlag)
                 {
+                    otherFlag = true;
                     btn_update.IsEnabled = true;
                     btnDelete.IsEnabled = true;
                     selectedCar = (Car)listCars.SelectedItem;
-                    db.SwitchCarTransaction(selectedCar);
+                    if (selectedCar == null) return;
+                    int selectedIndex = listCars.SelectedIndex;
+                    FillObsCars();
+                    carSelectionChangedEventDisabledFlag = true;
+                    db.SwitchCarTransaction(selectedCar);                  
+                    listCars.CurrentItem = listCars.Items[selectedIndex];
+                    selectedCar = (Car)listCars.Items[selectedIndex];
                     textId.Text = selectedCar?.CarId.ToString();
                     textName.Text = selectedCar?.CarName;
                     textMessages.Text = selectedCar?.ToString() + " selected";
                     textBestand.Text = selectedCar?.Bestand.ToString();
+                    otherFlag = false;
+                    carSelectionChangedEventDisabledFlag = false;
                 }
             }
             catch (Exception ex)
