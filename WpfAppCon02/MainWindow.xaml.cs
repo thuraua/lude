@@ -77,6 +77,11 @@ namespace WpfAppCon02
         #endregion
 
         #region SelectionChanged Events
+        private void ComboBoxTransactionMode_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (db != null)
+                db.IsolationLevel = comboBoxTransactionMode.SelectedIndex == 0 ? System.Data.IsolationLevel.ReadCommitted : System.Data.IsolationLevel.Serializable;
+        }
         private void listCars_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try

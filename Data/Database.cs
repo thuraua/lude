@@ -13,6 +13,7 @@ namespace Data
         private SortedList<int, Owner> collOwners;
         private SortedList<int, Sale> collSales;
         private OracleTransaction trans = null;
+        public System.Data.IsolationLevel IsolationLevel { get; set; } = System.Data.IsolationLevel.ReadCommitted;
 
         private Database(bool intern)
         {
@@ -43,10 +44,11 @@ namespace Data
             trans?.Commit();
             OracleCommand cmd1 = new OracleCommand("select * from cars where cnr = :cid for update nowait", conn);
             cmd1.Parameters.Add(new OracleParameter("cid", car.CarId));
-            trans = conn.BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+            trans = conn.BeginTransaction(IsolationLevel);
             cmd1.Transaction = trans;
             cmd1.ExecuteNonQuery();
         }
+
 
         #region Reading Operations
         public IList<Sale> Read_Sales_from_DB(Owner o)
@@ -129,7 +131,7 @@ namespace Data
         {
             try
             {
-                trans = conn.BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
+                trans = conn.BeginTransaction(IsolationLevel);
                 OracleCommand cmd2 = new OracleCommand("update cars set counter = counter + 1 where cnr = :cid", conn);
                 cmd2.Parameters.Add(new OracleParameter("cid", sale.CID));
                 OracleCommand cmd3 = new OracleCommand("delete from sales where snr=:id", conn);
