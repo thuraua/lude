@@ -13,7 +13,7 @@
         <TextBox x:Name="textId" HorizontalAlignment="Left" Height="22" Margin="220,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="128"/>
         <TextBox x:Name="textName" HorizontalAlignment="Left" Height="22" Margin="220,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="127"/>
         <Button x:Name="btnAdd" Content="Add Car" HorizontalAlignment="Left" Margin="51,249,0,0" VerticalAlignment="Top" Width="75" Click="btnAdd_Click" Height="20"/>
-        <TextBox x:Name="textMessages" HorizontalAlignment="Left" Height="23" Margin="51,431,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="764" Background="#FFF5FF1C"/>
+        <TextBox x:Name="textMessages" HorizontalAlignment="Left" Height="23" Margin="51,431,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="764" Background="#FFFFC342"/>
         <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="368,249,0,0" VerticalAlignment="Top" Width="74" Click="btnDelete_Click" Height="20" RenderTransformOrigin="0.053,0.15" IsEnabled="False"/>
         <Button x:Name="btn_update" Content="Update" HorizontalAlignment="Left" Margin="161,234,0,0" VerticalAlignment="Top" Width="161" FontSize="20" FontFamily="Showcard Gothic" FontStyle="Italic" Height="47" FontStretch="Expanded" Foreground="#FFFF0E0E" Click="Btn_update_Click" IsEnabled="False">
             <Button.Background>
@@ -45,6 +45,7 @@
             <ComboBoxItem Content="Read Committed"/>
             <ComboBoxItem Content="Serializable"/>
         </ComboBox>
+        <DatePicker x:Name="datePicker" HorizontalAlignment="Left" Margin="184,330,0,0" VerticalAlignment="Top" FirstDayOfWeek="Monday"/>
 
     </Grid>
 </Window>

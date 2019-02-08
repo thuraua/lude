@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Data;
+using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Data;
-using System.Collections.ObjectModel;
 
 namespace WpfAppCon02
 {
@@ -25,7 +14,7 @@ namespace WpfAppCon02
         private ObservableCollection<Car> obsCars = null;
         private ObservableCollection<Owner> obsOwners = null;
         private ObservableCollection<Sale> obsSales = null;
-        private bool otherFlag=false;
+        private bool otherFlag = false;
 
         public MainWindow()
         {
@@ -36,8 +25,8 @@ namespace WpfAppCon02
         private void InitializeMyComponent()
         {
             try
-            {                
-                db = Database.NewInstance(comboBox.SelectedIndex==0);
+            {
+                db = Database.NewInstance(comboBox.SelectedIndex == 0);
                 MessageBox.Show("connected");
                 obsCars = new ObservableCollection<Car>();
                 obsOwners = new ObservableCollection<Owner>();
@@ -106,7 +95,7 @@ namespace WpfAppCon02
                     int selectedIndex = listCars.SelectedIndex;
                     FillObsCars();
                     carSelectionChangedEventDisabledFlag = true;
-                    db.SwitchCarTransaction(selectedCar);                  
+                    db.SwitchCarTransaction(selectedCar);
                     listCars.CurrentItem = listCars.Items[selectedIndex];
                     selectedCar = (Car)listCars.Items[selectedIndex];
                     textId.Text = selectedCar?.CarId.ToString();
@@ -121,7 +110,7 @@ namespace WpfAppCon02
             {
                 textMessages.Text = ex.Message;
             }
-            
+
         }
         private void ListOwners_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -174,7 +163,7 @@ namespace WpfAppCon02
             catch (Exception ex)
             {
                 textMessages.Text = ex.Message;
-            }           
+            }
         }
         #endregion
 
@@ -209,9 +198,10 @@ namespace WpfAppCon02
                 btnResale.IsEnabled = false;
                 if (listOwners.SelectedItem == null)
                     throw new Exception("no owner selected");
-                if (listCars.SelectedItem == null)
+                if (selectedCar == null)
                     throw new Exception("no car selected");
-                db.ExecuteSaleTransaction(new Sale(((Car)listCars.SelectedItem).CarId, ((Owner)listOwners.SelectedItem).ONr));
+                DateTime d = (DateTime)datePicker.SelectedDate;
+                db.ExecuteSaleTransaction(new Sale(selectedCar.CarId, ((Owner)listOwners.SelectedItem).ONr, d));
                 FillObsSales((Owner)listOwners.SelectedItem);
                 FillObsCars();
                 textMessages.Text = "Sale commited!";

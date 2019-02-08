@@ -62,7 +62,7 @@ namespace Data
             {
                 while (reader.Read())
                 {
-                    Sale c = new Sale(Convert.ToInt32(reader["snr"]), Convert.ToInt32(reader["cid"]), Convert.ToInt32(reader["oid"]));
+                    Sale c = new Sale(Convert.ToInt32(reader["snr"]), Convert.ToInt32(reader["cid"]), Convert.ToInt32(reader["oid"]), Convert.ToDateTime(reader["saledate"]));
                     collSales.Add(c.SNR, c);
                 }
             }
@@ -110,9 +110,10 @@ namespace Data
                 //trans = conn.BeginTransaction(System.Data.IsolationLevel.ReadCommitted);
                 OracleCommand cmd2 = new OracleCommand("update cars set counter = counter - 1 where cnr = :cid", conn);
                 cmd2.Parameters.Add(new OracleParameter("cid", sale.CID));
-                OracleCommand cmd3 = new OracleCommand("insert into sales values(seq_sales.nextval, :cid, :oid)", conn);
+                OracleCommand cmd3 = new OracleCommand("insert into sales values(seq_sales.nextval, :cid, :oid, :saledate)", conn);
                 cmd3.Parameters.Add(new OracleParameter("cid", sale.CID));
                 cmd3.Parameters.Add(new OracleParameter("oid", sale.OID));
+                cmd3.Parameters.Add(new OracleParameter("saledate", sale.SALEDATE));
                 cmd2.Transaction = trans;
                 cmd3.Transaction = trans;
                 cmd2.ExecuteNonQuery();
